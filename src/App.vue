@@ -5,21 +5,13 @@
       <div class="col-sm-8">
         <h2>メンバー {{ members.length }}人</h2>
         <div class="row">
-          <div class="sm-col-6">
-            <ul>
-              <li v-for="(member, i) in boys" v-bind:key="i">
-                <i class="fa" v-bind:class="ICONS[member.sex]"></i>
-                {{ member.name }}
-              </li>
-            </ul>
+          <div class="col-sm-6">
+            <p>女子</p>
+            <member-list :members="girls"></member-list>
           </div>
-          <div class="sm-col-6">
-            <ul>
-              <li v-for="(member, i) in girls" v-bind:key="i">
-                <i class="fa" v-bind:class="ICONS[member.sex]"></i>
-                {{ member.name }}
-              </li>
-            </ul>
+          <div class="col-sm-6">
+            <p>男子</p>
+            <member-list :members="boys"></member-list>
           </div>
         </div>
         <button v-if="members.length > 0" v-on:click="shuffle" class="btn btn-success">席替え</button>
@@ -36,24 +28,17 @@
 <script>
 import _ from 'lodash'
 import MemberForm from './components/MemberForm.vue'
+import MemberList from './components/MemberList.vue'
 
 export default {
   name: 'App',
   components: {
-    MemberForm
+    MemberForm,
+    MemberList,
   },
   data () {
     return {
-      form: {
-        name: '',
-        sex: '女',
-      },
       members: [],
-      ICONS: {
-        '男': 'fa-mars',
-        '女': 'fa-venus'
-      },
-      SEX_OPTIONS: ['女', '男'],
     }
   },
   computed: {
@@ -91,12 +76,6 @@ export default {
 }
 .page {
   min-height: 300px;
-}
-.fa-mars {
-  color: #03328b;
-}
-.fa-venus {
-  color: #eb90c8;
 }
 
 .member-form {

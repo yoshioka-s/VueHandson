@@ -38,7 +38,6 @@ export default {
       const newMember = Object.assign({}, this.form)
       this.$emit('saveMember', newMember)
       this.form.name = ''
-      this.form.sex = '女'
     },
   },
 }
