@@ -27,23 +27,7 @@
 
       <div class="col-sm-4">
         <h2>メンバー追加</h2>
-        <form class="member-form" v-on:submit.prevent="save">
-          <div class="form-group">
-            <label for="sex">性別</label><br>
-            <p v-for="option in SEX_OPTIONS" :key="option" class="radio-wrapper">
-              <input type="radio" name="sex" v-bind:value="option" v-on:change="changeSex" v-bind:checked="option === form.sex">{{ option }}
-            </p>
-          </div>
-          <div class="form-group">
-            <label for="name">名前</label>
-            <input id="name" class="form-control" v-model="form.name">
-            <p>{{ form.name }}</p>
-            <p>{{ formattedName }}</p>
-          </div>
-          <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="作成">
-          </div>
-        </form>
+        <member-form @saveMember="addMember"></member-form>
       </div>
     </div>
   </div>
@@ -51,9 +35,13 @@
 
 <script>
 import _ from 'lodash'
+import MemberForm from './components/MemberForm.vue'
 
 export default {
   name: 'App',
+  components: {
+    MemberForm
+  },
   data () {
     return {
       form: {
@@ -72,12 +60,6 @@ export default {
     sortedMembers () {
       return _.sortBy(this.members, 'ordering')
     },
-    formattedName () {
-      if (!this.form.name) {
-        return ''
-      }
-      return this.form.name + (this.form.sex === '女' ? 'ちゃん' : 'くん')
-    },
     boys () {
       return this.sortedMembers.filter(member => {
         return member.sex === '男'
@@ -90,19 +72,15 @@ export default {
     },
   },
   methods: {
-    changeSex (event) {
-      this.form.sex = event.target.value
-    },
-    save () {
-      this.members.push(Object.assign({}, this.form, {ordering: this.members.length}))
-      this.form.name = ''
-      this.form.sex = '女'
-    },
     shuffle () {
       _(this.members)
       .shuffle()
       .each((member, i) => member.ordering = i)
     },
+    addMember (member) {
+      member.ordering = this.members.length
+      this.members.push(member)
+    }
   }
 }
 </script>
@@ -114,17 +92,6 @@ export default {
 .page {
   min-height: 300px;
 }
-.radio-wrapper {
-  display: inline-block;
-  margin-right: 1em;
-}
-.radio-wrapper:last-of-type {
-  margin-right: 0;
-}
- .radio-wrapper input {
-  margin-right: .5em;
-}
-
 .fa-mars {
   color: #03328b;
 }
