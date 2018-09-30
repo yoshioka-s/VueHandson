@@ -1,26 +1,27 @@
-# vue-handson-2
+# VueHandson
+Vue.jsのハンズオン勉強会の題材です。
 
-## Project setup
-```
-npm install
-```
+[Vue.js](https://vuejs.org/)を使ったSPA開発の基本に触れられます。
+[vue-router](https://router.vuejs.org/en/)を使ったルーティング、[Vuex](https://vuex.vuejs.org/en/intro.html)によるstate管理、サーバーとの非同期のやりとりまでを軽く触っていきます。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## 対象者
+- モダンなフロントエンドのフレームワークを使ってみたい
+- SPA (Single Page Application) 作ってみたい！
+- Vue.js興味はあるけど使ったことはない
+- Vue.js挫折した・・・
+- jQueryでええやんな人
+- Vue.jsの基礎は知ってるけどVuex難しい。。
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## 前提スキル
+- JSの文法は大丈夫 (ES6含む)
+- HTMLは大丈夫
+- セットアップが自力でできる
 
-### Run your tests
-```
-npm run test
-```
+## 環境
+node: V8 ~
+ブラウザ: Chromeおよび[Vue.js devtools](https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd?hl=en)推奨
 
-### Lints and fixes files
-```
-npm run lint
-```
+## セットアップ
+1. リポジトリをクローン
+1. `npm install`
+1. `npm run serve` → [localhost:8080](http://localhost:8080)が表示されることを確認
