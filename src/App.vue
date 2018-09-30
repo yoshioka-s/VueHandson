@@ -4,12 +4,24 @@
     <div class="row page">
       <div class="col-sm-8">
         <h2>メンバー {{ members.length }}人</h2>
-        <ul>
-          <li v-for="(member, i) in sortedMembers" v-bind:key="i">
-            <i class="fa" v-bind:class="ICONS[member.sex]"></i>
-            {{ member.name }}
-          </li>
-        </ul>
+        <div class="row">
+          <div class="sm-col-6">
+            <ul>
+              <li v-for="(member, i) in boys" v-bind:key="i">
+                <i class="fa" v-bind:class="ICONS[member.sex]"></i>
+                {{ member.name }}
+              </li>
+            </ul>
+          </div>
+          <div class="sm-col-6">
+            <ul>
+              <li v-for="(member, i) in girls" v-bind:key="i">
+                <i class="fa" v-bind:class="ICONS[member.sex]"></i>
+                {{ member.name }}
+              </li>
+            </ul>
+          </div>
+        </div>
         <button v-if="members.length > 0" v-on:click="shuffle" class="btn btn-success">席替え</button>
       </div>
 
@@ -65,7 +77,17 @@ export default {
         return ''
       }
       return this.form.name + (this.form.sex === '女' ? 'ちゃん' : 'くん')
-    }
+    },
+    boys () {
+      return this.sortedMembers.filter(member => {
+        return member.sex === '男'
+      })
+    },
+    girls () {
+      return this.sortedMembers.filter(member => {
+        return member.sex === '女'
+      })
+    },
   },
   methods: {
     changeSex (event) {
