@@ -58,6 +58,7 @@ export default {
   },
   computed: {
     sortedMembers () {
+      // membersをordering順に並べて返す
       return _.sortBy(this.members, 'ordering')
     },
     formattedName () {
@@ -72,13 +73,17 @@ export default {
       this.form.sex = event.target.value
     },
     save () {
-      this.members.push(Object.assign({}, this.form, {ordering: this.members.length}))
+      // orderingで席順を管理。新メンバーは最後尾
+      const newMember = Object.assign({}, this.form, {ordering: this.members.length})
+      this.members.push(newMember)
+      // フォームをリセット
       this.form.name = ''
-      this.form.sex = '女'
     },
     shuffle () {
       _(this.members)
+      // this.membersの配列順をシャッフル
       .shuffle()
+      // orderingをシャッフル後の席順に更新
       .each((member, i) => member.ordering = i)
     },
   }
