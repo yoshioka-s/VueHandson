@@ -36,7 +36,7 @@ export default {
     },
     save () {
       const newMember = Object.assign({}, this.form)
-      this.$emit('saveMember', newMember)
+      this.$store.commit('addMember', newMember)
       this.form.name = ''
     },
   },

@@ -18,16 +18,11 @@ export default {
   name: 'App',
   data () {
     return {
-      members: [],
     }
   },
   computed: {
   },
   methods: {
-    addMember (member) {
-      member.ordering = this.members.length
-      this.members.push(member)
-    }
   }
 }
 </script>
