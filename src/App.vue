@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <h1>席替え番長</h1>
+    <nav class="navbar navbar-light bg-light navbar-expand-lg">
+      <a href="/" class="navbar-brand"><h1>席替え番長</h1></a>
+    </nav>
     <div class="row page">
       <div class="col-sm-8">
         <h2>メンバー {{ members.length }}人</h2>
