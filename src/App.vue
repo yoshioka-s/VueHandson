@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-light bg-light navbar-expand-lg">
-      <a href="/" class="navbar-brand"><h1>席替え番長</h1></a>
+      <a href="/" class="navbar-brand">
+        <h1>席替え番長</h1>
+      </a>
     </nav>
     <div class="row page">
       <div class="col-sm-8">
         <h2>メンバー {{ members.length }}人</h2>
         <ul>
           <li v-for="(member, i) in sortedMembers" v-bind:key="i">
-            <i class="fa" v-bind:class="ICONS[member.sex]"></i>
+            <i class="fa" v-bind:class="ICONS[member.gender]"></i>
             {{ member.name }}
           </li>
         </ul>
@@ -19,19 +21,27 @@
         <h2>メンバー追加</h2>
         <form class="member-form" v-on:submit.prevent="save">
           <div class="form-group">
-            <label for="sex">性別</label><br>
-            <p v-for="option in SEX_OPTIONS" :key="option" class="radio-wrapper">
-              <input type="radio" name="sex" v-bind:value="option" v-on:change="changeSex" v-bind:checked="option === form.sex">{{ option }}
+            <label for="gender">性別</label>
+            <br />
+            <p v-for="option in GENDER_OPTIONS" :key="option" class="radio-wrapper">
+              <input
+                type="radio"
+                name="gender"
+                v-bind:value="option"
+                v-on:change="changeGender"
+                v-bind:checked="option === form.gender"
+              />
+              {{ option }}
             </p>
           </div>
           <div class="form-group">
             <label for="name">名前</label>
-            <input id="name" class="form-control" v-model="form.name">
+            <input id="name" class="form-control" v-model="form.name" />
             <p>{{ form.name }}</p>
             <p>{{ formattedName }}</p>
           </div>
           <div class="form-group">
-            <input type="submit" class="btn btn-primary" value="作成">
+            <input type="submit" class="btn btn-primary" value="作成" />
           </div>
         </form>
       </div>
@@ -40,56 +50,58 @@
 </template>
 
 <script>
-import _ from 'lodash'
+import _ from "lodash";
 
 export default {
-  name: 'App',
-  data () {
+  name: "App",
+  data() {
     return {
       form: {
-        name: '',
-        sex: '女',
+        name: "",
+        gender: "女"
       },
       members: [],
       ICONS: {
-        '男': 'fa-mars',
-        '女': 'fa-venus'
+        男: "fa-mars",
+        女: "fa-venus"
       },
-      SEX_OPTIONS: ['女', '男'],
-    }
+      GENDER_OPTIONS: ["女", "男"]
+    };
   },
   computed: {
-    sortedMembers () {
+    sortedMembers() {
       // membersをordering順に並べて返す
-      return _.sortBy(this.members, 'ordering')
+      return _.sortBy(this.members, "ordering");
     },
-    formattedName () {
+    formattedName() {
       if (!this.form.name) {
-        return ''
+        return "";
       }
-      return this.form.name + (this.form.sex === '女' ? 'ちゃん' : 'くん')
+      return this.form.name + (this.form.gender === "女" ? "ちゃん" : "くん");
     }
   },
   methods: {
-    changeSex (event) {
-      this.form.sex = event.target.value
+    changeGender(event) {
+      this.form.gender = event.target.value;
     },
-    save () {
+    save() {
       // orderingで席順を管理。新メンバーは最後尾
-      const newMember = Object.assign({}, this.form, {ordering: this.members.length})
-      this.members.push(newMember)
+      const newMember = Object.assign({}, this.form, {
+        ordering: this.members.length
+      });
+      this.members.push(newMember);
       // フォームをリセット
-      this.form.name = ''
+      this.form.name = "";
     },
-    shuffle () {
+    shuffle() {
       _(this.members)
-      // this.membersの配列順をシャッフル
-      .shuffle()
-      // orderingをシャッフル後の席順に更新
-      .each((member, i) => member.ordering = i)
-    },
+        // this.membersの配列順をシャッフル
+        .shuffle()
+        // orderingをシャッフル後の席順に更新
+        .each((member, i) => (member.ordering = i));
+    }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -106,8 +118,8 @@ export default {
 .radio-wrapper:last-of-type {
   margin-right: 0;
 }
- .radio-wrapper input {
-  margin-right: .5em;
+.radio-wrapper input {
+  margin-right: 0.5em;
 }
 
 .fa-mars {
